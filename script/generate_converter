@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Run goverter generation command
+goverter gen /Users/wanho/GolandProjects/security-proof/internal/user/convert
+goverter gen /Users/wanho/GolandProjects/security-proof/internal/proof/convert
+goverter gen /Users/wanho/GolandProjects/security-proof/internal/dashboard/convert
+
+echo "Goverter generation completed."

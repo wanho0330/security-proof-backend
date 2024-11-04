@@ -1,0 +1,87 @@
+run:
+  timeout: 5m # 린트 실행 시간 제한
+  issues-exit-code: 1 # 린트 오류 발생 시 종료 코드 1 반환
+  tests: true # 테스트 파일도 린트 검사
+
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - bidichk
+    - bodyclose
+    - contextcheck
+    - dupl
+    - durationcheck
+    - errname
+    - errorlint
+    - goconst
+    - gocritic
+    - godot
+    - gofmt
+    - goimports
+    - misspell
+    - noctx
+    - predeclared
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
+    - unconvert
+    - wastedassign
+    - whitespace
+    - wrapcheck
+    - funlen
+    - gocognit
+    - prealloc
+    - gosec
+    - stylecheck
+    - goprintffuncname
+    - gocyclo
+    - copyloopvar # exportloopref 대체 린터 사용
+  disable:
+    - exportloopref # Go 1.22 이후로 비활성화, copyloopvar로 대체
+
+linters-settings:
+  gocognit:
+    min-complexity: 10 # 인지적 복잡도 기준 설정
+  funlen:
+    lines: 100 # 함수 길이 제한 (줄 수)
+  gocyclo:
+    min-complexity: 15 # 함수 순환 복잡도 기준 설정
+  govet:
+    shadow: true
+
+issues:
+  exclude-use-default: false # 기본적으로 제외되는 이슈 사용 여부
+  exclude:
+    - "bodyclose" # 특정 이슈 제외
+    - "errorlint"
+
+output:
+  formats: colored-line-number # 문자열로 출력 형식 지정, 오류 해결
+  print-issued-lines: true # 문제 있는 코드 라인 출력 여부
+  print-linter-name: true # 린터 이름 출력 여부
+  uniq-by-line: true # 중복 라인별로 결과 정렬
+  sort-results: true # 결과 정렬
+
+severity:
+  default-severity: warning # 기본 경고 수준 설정
+  levels:
+    error: # 심각한 경고로 처리할 린터 목록
+      - gosec
+    warning:
+      - ineffassign
+
+# 패키지 및 코드에 영향을 줄 수 있는 특정 검사 설정
+tests:
+  enable:
+    - gocritic # 테스트 파일에도 gocritic 적용
+  disable:
+    - dupl # 중복 검사 비활성화 (테스트 파일에만 적용하지 않음)
+
+# 빌드 태그 설정
+build-tags:
+  - integration
